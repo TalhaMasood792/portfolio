@@ -106,9 +106,18 @@
     </section>
 
     <section class="contact" id="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title">Have a role or a project in mind?</h2>
-      <a class="contact-email" id="contact-email" href="#"></a>
-      <div class="contact-links" id="contact-links"></div>
+      <div class="contact-card">
+        <div class="contact-intro">
+          <h2 id="contact-title">Have a role or a project in mind?</h2>
+          <p id="contact-lede"></p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" id="contact-email-btn" href="#">Email me</a>
+            <button type="button" class="btn btn-ghost" id="copy-email">Copy email address</button>
+          </div>
+          <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+        </div>
+        <ul class="contact-list" id="contact-list"></ul>
+      </div>
     </section>
   </main>
 

@@ -16,7 +16,7 @@ function renderProfile() {
   $("hero-intro").textContent = profile.intro;
   for (const id of ["nav-cv", "hero-cv"]) {
     $(id).href = profile.resumeUrl;
-    $(id).setAttribute("download", "");
+    $(id).setAttribute("download", `${profile.name.replace(/\s+/g, "-")}-Resume.pdf`);
   }
 
   $("reach-title").innerHTML = `Products I've worked on are used by organisations including`;
@@ -27,13 +27,48 @@ function renderProfile() {
   $("skills").innerHTML = Object.entries(profile.skills)
     .map(([g, list]) => `<div><h3>${esc(g)}</h3><ul>${list.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div>`)
     .join("");
-  $("contact-email").textContent = profile.email;
-  $("contact-email").href = `mailto:${profile.email}`;
-  $("contact-links").innerHTML = [["GitHub", profile.github], ["LinkedIn", profile.linkedin], ["Download CV", profile.resumeUrl]]
-    .filter(([, url]) => url)
-    .map(([label, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`)
-    .join("");
+  renderContact();
   $("footer-text").textContent = `© ${new Date().getFullYear()} ${profile.name}. Hand-built with HTML, CSS and JavaScript.`;
+}
+
+/* ---------- Contact ---------- */
+const ICONS = {
+  mail: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  person: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 18c1-2.5 3-3.5 5-3.5s4 1 5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  code: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+};
+const shortUrl = (url) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+
+function renderContact() {
+  $("contact-lede").textContent = `${profile.availability}. Email is the quickest way to reach me, or connect on LinkedIn.`;
+  $("contact-email-btn").href = `mailto:${profile.email}`;
+  const resumeName = `${profile.name.replace(/\s+/g, "-")}-Resume.pdf`;
+  const rows = [
+    { icon: "mail", label: "Email", value: profile.email, href: `mailto:${profile.email}`, go: "Write" },
+    { icon: "person", label: "LinkedIn", value: shortUrl(profile.linkedin), href: profile.linkedin, go: "Open", external: true },
+    { icon: "code", label: "GitHub", value: shortUrl(profile.github), href: profile.github, go: "Open", external: true },
+    { icon: "doc", label: "Resume", value: "Download PDF", href: profile.resumeUrl, go: "PDF", download: resumeName },
+  ].filter((r) => r.href && !/your-username|example\.com/.test(r.href));
+  $("contact-list").innerHTML = rows.map((r) => `
+    <li><a href="${esc(r.href)}"${r.external ? ' target="_blank" rel="noopener"' : ""}${r.download ? ` download="${esc(r.download)}" type="application/pdf"` : ""}>
+      <span class="ic">${ICONS[r.icon]}</span>
+      <span class="txt"><small>${r.label}</small><b>${esc(r.value)}</b></span>
+      <span class="go" aria-hidden="true">${r.go}</span>
+    </a></li>`).join("");
+
+  $("copy-email").addEventListener("click", async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(profile.email); ok = true; } catch {
+      const t = document.createElement("textarea");
+      t.value = profile.email; document.body.appendChild(t); t.select();
+      try { ok = document.execCommand("copy"); } catch {}
+      t.remove();
+    }
+    $("copy-status").textContent = ok ? `Copied ${profile.email}` : `Copy this address: ${profile.email}`;
+    clearTimeout(renderContact.t);
+    renderContact.t = setTimeout(() => ($("copy-status").textContent = ""), 4000);
+  });
 }
 
 /* ---------- Experience ---------- */
