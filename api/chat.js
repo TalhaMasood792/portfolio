@@ -17,6 +17,20 @@ function rateLimited(ip) {
   return entry.count > LIMIT;
 }
 
+// Reasoning models (e.g. openai/gpt-oss-20b on Groq) think before answering,
+// so they need a bigger token budget and a low reasoning effort for quick replies.
+function requestBody(system, messages) {
+  const model = process.env.AI_MODEL || "openai/gpt-oss-20b";
+  const body = {
+    model,
+    messages: [{ role: "system", content: system }, ...messages],
+    temperature: 0.4,
+    max_tokens: 1024,
+  };
+  if (/gpt-oss|^o\d|deepseek-r1|qwen3/i.test(model)) body.reasoning_effort = "low";
+  return body;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Send a POST request." });
   if (!process.env.AI_API_KEY) return res.status(503).json({ error: "AI is not configured on this deployment." });
@@ -41,17 +55,12 @@ Politely decline unrelated requests and steer back to the portfolio.
 FACTS:
 ${buildKnowledge()}`;
 
-  const baseUrl = (process.env.AI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
+  const baseUrl = (process.env.AI_BASE_URL || "https://api.groq.com/openai/v1").replace(/\/$/, "");
   try {
     const r = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.AI_API_KEY}` },
-      body: JSON.stringify({
-        model: process.env.AI_MODEL || "gpt-4o-mini",
-        messages: [{ role: "system", content: system }, ...messages],
-        max_tokens: 350,
-        temperature: 0.4,
-      }),
+      body: JSON.stringify(requestBody(system, messages)),
     });
     if (!r.ok) {
       console.error("AI provider error", r.status, await r.text());
