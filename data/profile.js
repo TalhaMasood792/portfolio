@@ -14,11 +14,11 @@ export const profile = {
     "I enjoy taking a product from idea to production: understanding the problem, designing the data and the interface, and shipping something people rely on every day. Along the way I've built AI models into products, data platforms that collect information from around the world, and business applications with roles, approvals and reporting.",
     "EDIT: add a line about your education or years of experience, what you enjoy most, and the kind of team or role you want next.",
   ],
-  email: "you@example.com", // EDIT
+  email: "talhamasood792@gmail.com", // EDIT
   github: "https://github.com/TalhaMasood792",
-  linkedin: "https://www.linkedin.com/in/your-username", // EDIT
+  linkedin: "https://www.linkedin.com/in/muhammad-talha-masood-4a88221a4/", // EDIT
   resumeUrl: "assets/resume.pdf", // put your CV in /assets with this name
-  availability: "Open to new roles and freelance work",
+  availability: "Open to new roles",
   skills: {
     Languages: ["JavaScript", "TypeScript", "Python", "SQL"],
     Frontend: ["React", "Next.js", "HTML & CSS", "Accessible, responsive UI"],
@@ -69,7 +69,7 @@ export const projects = [
     id: "skyfeed",
     title: "SkyFeed",
     category: "security",
-    company: "", // EDIT: company, if you can name it
+    company: "Trellix", // EDIT: company, if you can name it
     tagline: "Global threat intelligence platform",
     status: "confidential",
     image: "assets/skyfeed.jpg",
