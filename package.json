@@ -1,0 +1,7 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Developer portfolio with an assistant that answers questions about my work."
+}

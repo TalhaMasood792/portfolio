@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Talha Masood · Software engineer</title>
+  <meta name="description" content="Software engineer building products and applications, with experience in AI, security and business software." />
+  <meta name="theme-color" content="#0e1319" />
+  <meta property="og:title" content="Talha Masood · Software engineer" />
+  <meta property="og:description" content="Products and applications across AI, security and business software." />
+  <meta property="og:image" content="assets/ledgerly.jpg" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230e1319%22/><path d=%22M8 9h16M16 9v15%22 stroke=%22%23f5b544%22 stroke-width=%223.4%22 stroke-linecap=%22round%22/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#work">Skip to projects</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" id="brand"></a>
+    <nav aria-label="Main">
+      <a href="#experience">Experience</a>
+      <a href="#security">Products</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cv" id="nav-cv" href="#">CV</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <p class="availability" id="availability"></p>
+        <h1 id="hero-title"></h1>
+        <p class="hero-role" id="hero-role"></p>
+        <p class="hero-intro" id="hero-intro"></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#work">See my work</a>
+          <a class="btn btn-ghost" id="hero-cv" href="#">Download CV</a>
+        </div>
+      </div>
+
+      <aside class="chat" aria-label="Ask about my work">
+        <div class="chat-head">
+          <span class="chat-dot" aria-hidden="true"></span>
+          <div>
+            <h2>Ask about my work</h2>
+            <p>An assistant that knows my experience and projects.</p>
+          </div>
+        </div>
+        <div class="chat-log" id="chat-log" aria-live="polite"></div>
+        <div class="chat-chips" id="chat-chips"></div>
+        <form class="chat-form" id="chat-form">
+          <label class="sr-only" for="chat-input">Your question</label>
+          <input id="chat-input" type="text" maxlength="500" autocomplete="off" placeholder="e.g. What products have you built?" />
+          <button type="submit" aria-label="Send question">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+      </aside>
+    </section>
+
+    <section class="reach" aria-labelledby="reach-title">
+      <p class="reach-lede" id="reach-title"></p>
+      <ul class="reach-list" id="reach-list"></ul>
+    </section>
+
+    <section class="experience" id="experience" aria-labelledby="exp-title">
+      <div class="section-head">
+        <h2 id="exp-title">Experience</h2>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <section class="security" id="security" aria-labelledby="sec-title">
+      <div class="section-head">
+        <h2 id="sec-title">Products I've built at work</h2>
+        <p>Production products used by large organisations, spanning data platforms, AI and security. The real interfaces are confidential, so these screens are illustrative mockups with sample data.</p>
+      </div>
+      <div class="featured" id="security-list"></div>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <h2 id="work-title">Applications I built</h2>
+        <p>Complete business applications with roles, approvals, audit trails and reporting. Each one is live, tested and open source.</p>
+      </div>
+      <div class="featured" id="featured"></div>
+
+      <div class="section-head section-head-sub">
+        <h2>More projects</h2>
+        <div class="tabs" role="group" aria-label="Filter projects" id="tabs"></div>
+      </div>
+      <ul class="grid" id="grid"></ul>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about-text">
+        <h2 id="about-title">About</h2>
+        <div id="about-body"></div>
+      </div>
+      <div class="skills" id="skills"></div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Have a role or a project in mind?</h2>
+      <a class="contact-email" id="contact-email" href="#"></a>
+      <div class="contact-links" id="contact-links"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p id="footer-text"></p></footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
